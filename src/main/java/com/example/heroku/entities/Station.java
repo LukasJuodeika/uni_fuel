@@ -1,18 +1,24 @@
 package com.example.heroku.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Station {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @NotBlank
     private String address;
+
+    @NotBlank
     private String lat;
+
+    @NotBlank(message = "Must not be empty")
     private String lng;
+
+    @NotBlank
     private String title;
 
     public Station() {

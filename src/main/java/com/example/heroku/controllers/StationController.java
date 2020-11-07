@@ -3,8 +3,10 @@ package com.example.heroku.controllers;
 import com.example.heroku.entities.Station;
 import com.example.heroku.repositories.StationsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class StationController {
     StationsRepository stationsRepository;
 
     @PostMapping("/station")
-    public Station createStation(@RequestBody Station station) {
+    public Station createStation(@Valid @RequestBody Station station) {
         return stationsRepository.save(station);
     }
 
