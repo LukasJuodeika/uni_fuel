@@ -1,6 +1,8 @@
 package com.example.heroku.controllers;
 
 import com.example.heroku.entities.Station;
+import com.example.heroku.repositories.StationsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -10,9 +12,12 @@ import java.util.List;
 @RequestMapping("/api")
 public class StationController {
 
+    @Autowired
+    StationsRepository stationsRepository;
+
     @PostMapping("/station")
     public Station createStation(@RequestBody Station station) {
-        return station;
+        return stationsRepository.save(station);
     }
 
     @GetMapping("/station/{id}")
@@ -22,12 +27,9 @@ public class StationController {
 
     @GetMapping("/station")
     public List<Station> readStationList() {
-        Station station = new Station("Savanoriai", "54.898521", "23.903597", "Station 1");
-        Station station2 = new Station("Savanoriai", "54.898521", "23.903597", "Station 1");
-        List<Station> stationList = new ArrayList<>();
-        stationList.add(station);
-        stationList.add(station2);
-        return stationList;
+        List<Station> list = new ArrayList<>();
+        stationsRepository.findAll().forEach(list::add);
+        return list;
     }
 
     @PutMapping("/station/{id}")
