@@ -17,13 +17,13 @@ public class StationController {
 
     @GetMapping("/station/{id}")
     public Station readStation(@PathVariable long id) {
-        return new Station(id, "Savanoriai", "54.898521", "23.903597", "Station 1");
+        return new Station("Savanoriai", "54.898521", "23.903597", "Station 1");
     }
 
     @GetMapping("/station")
     public List<Station> readStationList() {
-        Station station = new Station(1L, "Savanoriai", "54.898521", "23.903597", "Station 1");
-        Station station2 = new Station(2L, "Savanoriai", "54.898521", "23.903597", "Station 1");
+        Station station = new Station("Savanoriai", "54.898521", "23.903597", "Station 1");
+        Station station2 = new Station("Savanoriai", "54.898521", "23.903597", "Station 1");
         List<Station> stationList = new ArrayList<>();
         stationList.add(station);
         stationList.add(station2);
@@ -37,7 +37,7 @@ public class StationController {
 
     @DeleteMapping("/station/{id}")
     public Station deleteStation(@PathVariable long id) {
-        return new Station(1L, "Savanoriai", "54.898521", "23.903597", "Station 1");
+        return new Station("Savanoriai", "54.898521", "23.903597", "Station 1");
     }
 
 }

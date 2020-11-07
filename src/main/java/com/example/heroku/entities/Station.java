@@ -1,6 +1,14 @@
 package com.example.heroku.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Station {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String address;
     private String lat;
@@ -10,8 +18,7 @@ public class Station {
     public Station() {
     }
 
-    public Station(long id, String address, String lat, String lng, String title) {
-        this.id = id;
+    public Station(String address, String lat, String lng, String title) {
         this.address = address;
         this.lat = lat;
         this.lng = lng;

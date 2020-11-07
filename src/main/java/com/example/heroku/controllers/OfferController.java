@@ -1,6 +1,7 @@
 package com.example.heroku.controllers;
 
 import com.example.heroku.entities.Offer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,8 +18,8 @@ public class OfferController {
 
     @GetMapping("/station/{id}/offer")
     public List<Offer> readOfferList(@PathVariable long id) {
-        Offer offer = new Offer(1L, "title1", "description description");
-        Offer offer2 = new Offer(2L, "title2", "description description description");
+        Offer offer = new Offer("title1", "description description");
+        Offer offer2 = new Offer("title2", "description description description");
         List<Offer> offers = new ArrayList<>();
         offers.add(offer);
         offers.add(offer2);
@@ -27,7 +28,7 @@ public class OfferController {
 
     @GetMapping("/station/{id}/offer/{offerId}")
     public Offer readOffer(@PathVariable long id, @PathVariable long offerId) {
-        return new Offer(1L, "title1", "description description");
+        return new Offer("title1", "description description");
     }
 
     @PutMapping("/station/{id}/offer/{offerId}")
@@ -37,6 +38,6 @@ public class OfferController {
 
     @DeleteMapping("/station/{id}/offer/{offerId}")
     public Offer deleteOffer(@PathVariable long id, @PathVariable long offerId) {
-        return new Offer(offerId, "title", "description");
+        return new Offer("title", "description");
     }
 }

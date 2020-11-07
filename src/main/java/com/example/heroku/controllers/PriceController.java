@@ -17,8 +17,8 @@ public class PriceController {
 
     @GetMapping("/station/{id}/price")
     public List<Price> readPriceList(@PathVariable long id) {
-        Price price = new Price(1L, id, "2020-01-01");
-        Price price2 = new Price(2L, id, "2020-01-01");
+        Price price = new Price(id, "2020-01-01");
+        Price price2 = new Price( id, "2020-01-01");
         List<Price> priceList = new ArrayList<>();
         priceList.add(price);
         priceList.add(price2);
@@ -26,8 +26,8 @@ public class PriceController {
     }
 
     @GetMapping("/station/{id}/price/{priceId}")
-    public Price readPrice(@PathVariable long id, @PathVariable long priceId) {
-        return new Price(priceId, id, "2020-01-01");
+    public Price readPrice(@PathVariable long id, @PathVariable long stationId) {
+        return new Price( stationId, "2020-01-01");
     }
 
     @PutMapping("/station/{id}/price/{priceId}")
@@ -36,7 +36,7 @@ public class PriceController {
     }
 
     @DeleteMapping("/station/{id}/price/{priceId}")
-    public Price deletePrice(@PathVariable long id, @PathVariable long priceId) {
-        return new Price(priceId, id, "2020-02-01");
+    public Price deletePrice(@PathVariable long id, @PathVariable long stationId) {
+        return new Price(stationId, "2020-02-01");
     }
 }
