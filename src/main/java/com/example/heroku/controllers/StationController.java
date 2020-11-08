@@ -3,7 +3,6 @@ package com.example.heroku.controllers;
 import com.example.heroku.entities.Station;
 import com.example.heroku.repositories.StationsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,7 +14,7 @@ import java.util.List;
 public class StationController {
 
     @Autowired
-    StationsRepository stationsRepository;
+    private StationsRepository stationsRepository;
 
     @PostMapping("/station")
     public Station createStation(@Valid @RequestBody Station station) {
@@ -24,7 +23,7 @@ public class StationController {
 
     @GetMapping("/station/{id}")
     public Station readStation(@PathVariable long id) {
-        return new Station("Savanoriai", "54.898521", "23.903597", "Station 1");
+        return stationsRepository.findById(id).get();
     }
 
     @GetMapping("/station")
@@ -35,13 +34,14 @@ public class StationController {
     }
 
     @PutMapping("/station/{id}")
-    public Station updateStation(@RequestBody Station station, @PathVariable long id) {
-        return station;
+    public Station updateStation(@Valid @RequestBody Station station, @PathVariable long id) {
+        Station dbStation = stationsRepository.findById(id).get();
+        return stationsRepository.save(dbStation.update(station));
     }
 
     @DeleteMapping("/station/{id}")
-    public Station deleteStation(@PathVariable long id) {
-        return new Station("Savanoriai", "54.898521", "23.903597", "Station 1");
+    public void deleteStation(@PathVariable long id) {
+        stationsRepository.deleteById(id);
     }
 
 }

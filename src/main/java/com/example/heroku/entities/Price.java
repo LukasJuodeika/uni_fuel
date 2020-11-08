@@ -1,24 +1,37 @@
 package com.example.heroku.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Price {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private long stationId;
+
+    @ManyToOne
+    @JoinColumn(name = "stationId", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Station station;
+
+    @NotNull
     private String dateTime;
 
     public Price() {
     }
 
-    public Price(long stationId, String dateTime) {
-        this.stationId = stationId;
+    public Price(String dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public Price update(Price price) {
+        this.dateTime = price.dateTime;
+        return this;
     }
 
     public long getId() {
@@ -29,7 +42,15 @@ public class Price {
         return dateTime;
     }
 
-    public long getStationId() {
-        return stationId;
+    public Station getStation() {
+        return station;
+    }
+
+    public void setStation(Station station) {
+        this.station = station;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

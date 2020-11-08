@@ -15,7 +15,7 @@ public class Station {
     @NotBlank
     private String lat;
 
-    @NotBlank(message = "Must not be empty")
+    @NotBlank
     private String lng;
 
     @NotBlank
@@ -29,6 +29,14 @@ public class Station {
         this.lat = lat;
         this.lng = lng;
         this.title = title;
+    }
+
+    public Station update(Station station) {
+        this.address = station.address;
+        this.lat = station.lat;
+        this.lng = station.lng;
+        this.title = station.title;
+        return this;
     }
 
     public long getId() {
