@@ -14,6 +14,16 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
+    private static final String CLIEN_ID = "testClientId";
+    private static final String CLIENT_SECRET = "testClientSecret";
+    private static final String GRANT_TYPE_PASSWORD = "password";
+    private static final String AUTHORIZATION_CODE = "authorization_code";
+    private static final String REFRESH_TOKEN = "refresh_token";
+    private static final String IMPLICIT = "implicit";
+    private static final String SCOPE_READ = "read";
+    private static final String SCOPE_WRITE = "write";
+    private static final String TRUST = "trust";
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -30,20 +40,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients
                 .inMemory()
-                .withClient("my-trusted-client")
-                .authorizedGrantTypes("client_credentials", "password")
-                .authorities("ROLE_CLIENT","ROLE_TRUSTED_CLIENT")
-                .scopes("read","write","trust")
-                .resourceIds("oauth2-resource")
-                .accessTokenValiditySeconds(5000)
-                .secret(passwordEncoder.encode("secret"));
+                .withClient(CLIEN_ID)
+                .secret(passwordEncoder.encode(CLIENT_SECRET))
+                .authorizedGrantTypes(GRANT_TYPE_PASSWORD, AUTHORIZATION_CODE, REFRESH_TOKEN, IMPLICIT )
+                .scopes(SCOPE_READ, SCOPE_WRITE, TRUST);
     }
 
 
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security
-                .checkTokenAccess("isAuthenticated()");
+    public void configure(AuthorizationServerSecurityConfigurer security) {
+        security.checkTokenAccess("isAuthenticated()");
     }
 
 }
